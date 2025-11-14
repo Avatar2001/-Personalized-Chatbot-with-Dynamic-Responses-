@@ -1,3 +1,23 @@
 datasets>=2.14.0
 scikit-learn>=1.3.0
 PyYAML>=6.0
+
+# PDF Processing
+PyMuPDF==1.26.6
+
+# Text Cleaning/Parsing
+beautifulsoup4==4.14.2
+
+# LangChain Components
+langchain==1.0.5
+langchain-community==0.4.1
+langchain-text-splitters
+
+# Embedding Models (Required by langchain-community for HuggingFaceEmbeddings)
+sentence-transformers
+# Note: You may need a specific library to use 'sentence-transformers/all-MiniLM-L6-v2', 
+# such as 'torch' and 'transformers', but 'sentence-transformers' often bundles or 
+# manages these dependencies. We will include the necessary high-level package.
+
+# Vector Store (Required by langchain-community for Qdrant)
+qdrant-client
