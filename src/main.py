@@ -6,6 +6,7 @@ from rag.chunker import TextChunker
 from rag.embedder import Embedder
 from rag.vectorstore_manager import VectorStoreManager
 from rag.query_engine import QueryEngine
+from llm.llm_generator import LLMGenerator
 
 if __name__ == "__main__":
     try:
@@ -45,8 +46,12 @@ if __name__ == "__main__":
         retriever = vector_manager.get_retriever(top_k=5)
         query_engine = QueryEngine(retriever)
 
+        generator = LLMGenerator(api_key=os.environ("GEMINI_API_KEY"))
+        answer = generator.answer_generation("What is recursion in Python?", query_engine.query("What is recursion in Python?"))
+
         # Example Query
         print(query_engine.query("What is recursion in Python?"))
+        print(answer)
 
     except Exception as e:
         print(f"An error occurred: {e}")
