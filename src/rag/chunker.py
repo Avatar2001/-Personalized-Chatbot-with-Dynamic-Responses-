@@ -12,6 +12,6 @@ class TextChunker:
             chunk_size=self.chunk_size,
             chunk_overlap=self.chunk_overlap,
         )
-        chunks = splitter.split_documents(documents)
+        chunks = splitter.split_documents(documents)  
         print(f"Created {len(chunks)} chunks.")
         return chunks
