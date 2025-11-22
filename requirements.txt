@@ -9,3 +9,5 @@ langchain-text-splitters
 sentence-transformers
 qdrant-client
 google-generativeai==0.8.5
+cohere==5.20.0
+

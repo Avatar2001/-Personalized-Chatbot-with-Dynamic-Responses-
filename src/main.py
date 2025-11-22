@@ -10,6 +10,8 @@ from rag.auto_merging_retriever import AutoMergingRetriever
 from llm.llm_generator import LLMGenerator
 from rag.retriever_adapter import RetrieverAdapter
 from evaluation.evaluator import evaluate_answer
+from rag.reranker  import Reranker
+from dotenv import load_dotenv
 
 if __name__ == "__main__":
     try:
@@ -49,7 +51,8 @@ if __name__ == "__main__":
         query_engine = QueryEngine(auto_retriever)
 
         print("Initializing LLM...")
-        gemini_key = os.environ.get("GEMINI_API_KEY")
+        load_dotenv()
+        gemini_key = os.getenv("GEMINI_API_KEY")
         if not gemini_key:
             raise RuntimeError("GEMINI_API_KEY environment variable not set.")
         generator = LLMGenerator(api_key=gemini_key)
@@ -62,10 +65,20 @@ if __name__ == "__main__":
         
         print("Retrieving documents...")
         merged_docs = query_engine.query(q)  
-        retrieved_texts = [d.page_content for d in merged_docs[:5]]  
+        retrieved_texts = [d.page_content for d in merged_docs[:50]] 
+
+        print("Reranking retrieved documents...")
+        reranker = Reranker()
+        reranked = reranker.rerank(q, retrieved_texts, top_k=5)
+        docs = [doc for doc, score in reranked]
+        scores = [score for doc, score in reranked]
+
+        print("Documents:", docs)
+        print("Scores:", scores)
+
 
         print("Generating answer...")
-        answer = generator.answer_generation(q, retrieved_texts)
+        answer = generator.answer_generation(q, docs)
 
         print("\n" + "="*80)
         print("GENERATED ANSWER")

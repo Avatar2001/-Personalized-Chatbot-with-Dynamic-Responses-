@@ -8,7 +8,7 @@ class LLMGenerator:
         self,
         api_key: str,
         model_name: str = "gemini-2.5-flash",
-        max_tokens: int = 1000,
+        max_tokens: int = 2000,
         temperature: float = 0.1,
     ):
         genai.configure(api_key=api_key)
