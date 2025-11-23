@@ -8,9 +8,9 @@ FILE_DEFAULT_CHUNK_SIZE=512000 # 512KB
 
 POSTGRES_USERNAME=""
 POSTGRES_PASSWORD=""
-POSTGRES_HOST=""
+POSTGRES_HOST="" # Use the service name defined in docker-compose.yml - all in the same network ==> backend
 POSTGRES_PORT=5432
-POSTGRES_MAIN_DATABASE=""
+POSTGRES_MAIN_DATABASE="mrag"
 
 # ========================= LLM Config =========================
 GENERATION_BACKEND = "GEMINI"
